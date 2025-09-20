@@ -12,7 +12,7 @@
 		<div id="app">
 			<div>
 				<label for="goal">Goal</label>
-				<input type="text" id="goal" v-model="enteredValue" @keyup.enter='addGoal' />
+				<input type="text" id="goal" v-model="enteredValue" @keyup.enter='addGoal'/> <!-- 加上 @keyup.enter='addGoal 的用意是可以1.按下enter 2.按下'addGoal'button 都能新增'-->
 				<button v-on:click='addGoal'>Add Goal</button>
 			</div>
 
@@ -20,7 +20,7 @@
 				<li v-for="goal in goals">{{ goal }}</li>
 			</ul>
 
-			{{enteredValue}}
+			{{enteredValue}} <!-- 加上這個只是為了方便觀察罷了 -->
 
 		</div>
 
@@ -28,7 +28,7 @@
 		<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
 
 		<!-- Vue 3 -->
-		<script src="https://unpkg.com/vue@next"></script>
+		<script src="https://unpkg.com/vue@3.4.9/dist/vue.global.js"></script> 
 		<script src="app.js"></script>
 	</body>
 
