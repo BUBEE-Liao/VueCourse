@@ -13,17 +13,22 @@ const app = Vue.createApp({
 		},
 
 		decrement(num) {
-			if (this.counter < 1) return;
+			if (this.counter < num) return;
 			this.counter -= num;
 		},
 		setName(event, lastName) {
+			// make full use of Javascript, we can get 'event' as params
+			// this event contains full information, like user input value(event.target.value)
 			this.name = `${event.target.value} ${lastName}`;
 		},
 		confirmInput() {
 			this.confirmedName = this.name;
 			console.log(this.confirmedName);
 		},
-		submitForm() {
+		// in html, we mention that form will default reload the page, this's what we don't want to
+		// so, we can use preventDefault() to disable default behavior of browser
+		submitForm(event) {
+			event.preventDefault();
 			alert('Submitted');
 		},
 	},

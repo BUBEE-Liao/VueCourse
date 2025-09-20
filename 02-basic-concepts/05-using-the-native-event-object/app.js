@@ -45,12 +45,21 @@ const app = Vue.createApp({
 			return 'fafdsfds';
 		},
 	},
+	// a watcher is basically a function you can tell Vue to execute when one of its dependencies changed
+	// it just sounds like computed property
+	// indeed, we can use watcher instead of computed properties
+	// usage : set the function name to the data key name
+	// we repeat another data or computed property name, as the method's name
+	// that watcher method will be executed automatically by Vue, whenever the data of that name changes
+	// we can use watcher as an alternative to a computed property
 	watch: {
+		// will automatically brings 'value', means the latest(new) value of 'counter' key variable
 		counter(value) {
 			if (value > 50 || value < 0) {
 				this.counter = 0;
 			}
 		},
+		// we can also use two parameters, new one and previous(old) one
 		// name(newValue, oldValue) {
 		// 	console.log('first');
 		// 	if (newValue == '') {
@@ -69,6 +78,13 @@ const app = Vue.createApp({
 		// },
 	},
 	// computed is like a data property (YOU DONT CALL IT), name it like property, not method
+	// computed properties are essentially like methods
+	// with one important difference, Vue will be aware of their dependencies and only re-execute them if one of the dependencies changed
+	// we use it for performance sake
+	// in computed, there're bunch of methods, just like 'methods'
+	// key point : only use methods if you know that you want to recalculate a value whenever anything on the page changed
+	// key point : and we bind our event to methods, not computed property
+	// key point : we only use computed property for outputting something
 	computed: {
 		fullname() {
 			console.log('Running output full name');

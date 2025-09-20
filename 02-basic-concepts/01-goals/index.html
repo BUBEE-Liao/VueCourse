@@ -17,13 +17,23 @@
 		</header>
 		<section id="user-goal">
 			<h2>My Course Goal</h2>
-			<!-- <p>{{ outputGoal() }}</p> -->
-			<p v-html="outputGoal()" v-bind:title="message"></p>
 
-			<p>Learn more by visiting <a :href="vueLink">Vue website</a></p>
+			<!-- we can levarage interpolation to execute function -->
+			<p>{{ outputGoal() }}</p>
+			<p>{{ message }}</p>
+			<!-- sometimes we want to show html effets, instead of directly shows something like <h1> defined in data of Vue app -->
+			<!-- we can use 'v-html' -->
+			<p v-html="courseGoalC"></p>
+
+			<!-- we can also use v-html to execute function -->
+			<!-- in v-bind, 'title' is the property name -->
+			<!-- <p v-html="outputGoal()" v-bind:title="message"></p> -->
+
+			<p>Learn more by visiting <a v-bind:href="vueLink">Vue Website</a></p>
+			<!-- we can also eliminate v-bind, just write : <a :href="vueLink">Vue Website</a> -->
 		</section>
 
-		<script src="https://unpkg.com/vue@next"></script>
+		<script src="https://unpkg.com/vue@3.4.9/dist/vue.global.js"></script>
 	</body>
 
 </html>

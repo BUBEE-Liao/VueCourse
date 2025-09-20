@@ -9,7 +9,7 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="styles.css" />
-		<script src="https://unpkg.com/vue@next" defer></script>
+		<script src="https://unpkg.com/vue@3.4.9/dist/vue.global.js"></script>
 		<script src="app.js" defer></script>
 	</head>
 
@@ -19,8 +19,11 @@
 		</header>
 
 		<section id="events">
+			<!-- v-bind is helpful for setting the value of an attribute(html value maybe?) -->
 			<h2 v-bind:title="statusMsg">Events in Action</h2>
 
+			<!-- for adding EventListeners, we use v-on -->
+			<!-- inside the "", can be "counter++" or "counter = counter + 1", shortest form of writing JavaScript, just javascript code -->
 			<button v-on:click="increment(1)">Add</button>
 			<button @click="increment(10)">Add 10</button>
 			<button
@@ -35,17 +38,36 @@
 			<p>Result: {{ counter }}</p>
 
 			<label for="">Your name: </label>
+			<!-- @input = v-on:input , a default Dom event available on input elements, nothing Vue specific -->
+			<!-- inside "", define what happens on every keystroke -->
+			<!-- in this case, setName() function is the event we want to execute on every keystroke -->
+			<!-- but, how do we know what user input? how do we get that input value? -->
+			<!-- there's a cool behavior in JavaScript, not in Vue -->
+			<!-- when we add an eventListener, and we point at a function that should be executed, That function will automatically get one argument -->
+			<!-- the browser will ensure that this argument is provided, so to say, that will be the object describing the event that occurred -->
+			<!-- whenever we need the value in event, we can pass in $event -->
 			<input
 				type="text"
 				@input="setName($event, 'Osrečki')"
 				@keyup.enter="confirmInput"
 			/>
+			<!-- keyup is a event, whenever some key is press, .enter is the event modifier, to spedify specific key we entered -->
 			<p>Hi {{ confirmedName }}</p>
-
-			<form :submit.prevent.="submitForm">
+			
+			<!-- if this's a normal form, the browser will default reload the page (send a http request) -->
+			<!-- we can add .prevent to disable default browser behavior -->
+			<form @submit.prevent="submitForm">
 				<input type="text" name="" id="" />
 				<button>Sign up</button>
 			</form>
+
+			<!-- there's another way to write, the result will be the same -->
+			<!-- use $event as parameter, and in Vue app, prevent defauld behavior using event -->
+			<form v-on:submit="submitForm($event)">
+				<input type="text" name="" id="" />
+				<button>Sign up</button>
+			</form>
+
 		</section>
 	</body>
 </html>

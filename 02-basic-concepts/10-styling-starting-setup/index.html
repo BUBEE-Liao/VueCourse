@@ -9,7 +9,7 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="styles.css" />
-		<script src="https://unpkg.com/vue@next" defer></script>
+		<script src="https://unpkg.com/vue@3.4.9/dist/vue.global.js"></script>
 		<script src="app.js" defer></script>
 	</head>
 
@@ -24,16 +24,23 @@
 				:style="{borderColor: boxASelected ? 'red' : '#ccc'}"
 				@click="boxToggleSelected('A')"
 			></div>
+			<!-- {} in style only used if we bind style using v-bind -->
+			<!-- but style is not convenient, we seldom use it, we use class more often, so the below is the adding-class way -->
 
+			<!-- use computed property -->
 			<div
 				class="demo"
 				:class="boxAClasses"
 				@click="boxToggleSelected('A')"
 			></div>
+			<!-- we can use array as well -->
 			<div
 				:class="['demo', {active: boxBSelected}]"
 				@click="boxToggleSelected('B')"
 			></div>
+			<!-- Vue helps us to use this magical syntax -->
+			<!-- this means : if boxCSelected, add class 'active' -->
+			<!-- we can only use this when using 'v-bind' -->
 			<div
 				class="demo"
 				:class="{active: boxCSelected}"
