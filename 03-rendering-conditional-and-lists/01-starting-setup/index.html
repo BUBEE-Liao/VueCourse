@@ -9,7 +9,7 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="styles.css" />
-		<script src="https://unpkg.com/vue@next" defer></script>
+		<script src="https://unpkg.com/vue@3.4.9/dist/vue.global.js"></script>
 		<script src="app.js" defer></script>
 	</head>
 	<body>
@@ -20,9 +20,15 @@
 			<h2>My course goals</h2>
 			<input type="text" v-model="currentGoal" @keydown.enter="addGoal" />
 			<button @click="addGoal">Add Goal</button>
+			<!-- we can use v-if to render conditionally -->
 			<p v-if="goals.length === 0">
 				No goals have been added yet - please start adding some!
 			</p>
+			<!-- v-show can do the same effect -->
+			<!-- difference : v-if really removes and adds dlements from and to the DOM, so it really impacts which elements are part of the DOM -->
+			<!-- v-show, on the other hand, just hides and shows items with CSS (display : none) -->
+			<!-- adding and removing elements can cost performance, so this is a trade off -->
+			<!-- rule : we should typically use v-if and only fall back to v-show if we have the element, which visibility status changes a lot -->
 			<ul v-else>
 				<!-- add key whenever using v-for, bcs after deleting,
                     on re-render vue only changes the placeholders, and not 
@@ -30,30 +36,42 @@
                     it changes it by making it unique with unique key
                     it helps Vue makes elements apart, it doesnt reuse it
                 -->
+				<!-- when we deleting some element (e.g. the first one), the DOM tree will delete the second element -->
+				<!-- and take the content of second one to replace to content of the first one -->
+				<!-- it seems that we delete the first element, however, it delete the second one, this is a bug -->
+				<!-- there're all li elements, threr's no unique identification criteria for every DOM elements -->
+				<!-- there's an extra attribute which is a non default HTML attribute, which we can add on elements on which we also use v-for -->
+				<!-- that's the 'key' attribute, it's a good habit to start using it on all items -->
+				<!-- to use 'key', index is not the best choice, goal may be OK here, more often we use _id, a unique key of data -->
+				<!-- one key take-away : we should add such 'key' attribute with a unique identification criteria when we're using V-for -->
+				<!-- we should add it to help Vue tell the different elements apart, and make sure that state like such entered value, is not getting lost, and also to help you behind the scenes, do more performance optimizations -->
 				<li
 					v-for="(goal, index) in goals"
 					:key="goal"
 					@click="removeGoal(index)"
 				>
+				<!-- (list_i, index) is supported by Vue, to get the index -->
 					<p>{{ index+1 }} - {{ goal }}</p>
 					<!-- .stop stops propagation (bubbling), doesnt trigger outer events -->
+					<!-- since we @click="removeGoal(index), when we click this input filed, the whole li will remove" -->
+					<!-- to prevent this, add @click.stop can stop propagation -->
 					<input type="text" @click.stop />
 				</li>
 			</ul>
 
-			<!-- <h2>Iterate over objects</h2>
+			<h2>Iterate over objects</h2>
 			<ul>
 				<li v-for="value, key, index in { name: 'Matija', age: 21 }">
 					{{ index }}. {{ key }}: {{ value }}
 				</li>
-			</ul> -->
+			</ul> 
 
-			<!-- <h2>Number ranges</h2>
+			<h2>Number ranges</h2>
 			<ul>
 				<li v-for="(num, i) in 10">
 					Number {{ num }} at index {{ i }}
 				</li>
-			</ul> -->
+			</ul>
 		</section>
 	</body>
 </html>
