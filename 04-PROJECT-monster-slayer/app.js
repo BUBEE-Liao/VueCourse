@@ -1,6 +1,7 @@
 /* eslint-disable no-plusplus */
 // https://monster-slayer.mat2ja.vercel.app/
 
+/// just a regular javascript function
 function getRandomValue(min, max) {
 	return Math.floor(Math.random() * (max - min) + min);
 }
@@ -18,6 +19,8 @@ const app = Vue.createApp({
 		};
 	},
 	computed: {
+		/// put too much logic in html is not good (original : use :style="{width : monsterHealth + '%'}" in html)
+		/// we can add this logic in computed property, return css whenever our data property changed
 		monsterBarStyles() {
 			const damage = this.monsterHealth / 100;
 			return { transform: `scaleX(${damage})` };
@@ -30,7 +33,11 @@ const app = Vue.createApp({
 			return this.currentRound % 3 !== 0;
 		},
 	},
+	/// we can add 'which one wins' logic in attackMonster(), but the same code will repeat everywhere
+	/// instead with Vue, we have a nicer way of keeping track of something than doing something in reaction to that, we could add a watcher
 	watch: {
+		/// function name should === data property name we want to watch
+		/// remember to bring 'valud' parameter in this function, it's the data property itself
 		playerHealth(value) {
 			if (value <= 0 && this.monsterHealth <= 0) {
 				this.winner = 'draw';
@@ -80,6 +87,10 @@ const app = Vue.createApp({
 				'attack',
 				attackValue
 			);
+			/// we can also access other method in 'method' using this.METHOD_NAME
+			/// just because we can access 'data' property through 'this' keyword, we can also access methods through 'this' keyword
+			/// reason : same as 'data' property, 'data' property would be merged into a behind the scenes managed global object
+			/// and it's the same for methods and for computed property, all of them is getting merged into that begind the scenes controlled global object
 			this.attackPlayer();
 		},
 		attackPlayer() {
@@ -97,6 +108,7 @@ const app = Vue.createApp({
 		healPlayer() {
 			this.currentRound++;
 			const healValue = getRandomValue(12, 20);
+			/// health can not exceed 100
 			if (this.playerHealth + healValue > 100) {
 				this.playerHealth = 100;
 			} else {
@@ -121,6 +133,7 @@ const app = Vue.createApp({
 			this.playerName = e.target.value;
 		},
 		addLogMessage(who, what, value) {
+			/// 'unshift' is like 'push', 'push' add item to the rear, 'unshift' add item to the front
 			this.logMessages.unshift({
 				actionBy: who,
 				actionType: what,

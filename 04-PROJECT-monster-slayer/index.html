@@ -14,7 +14,7 @@
 			href="https://csshake.surge.sh/csshake.min.css"
 		/>
 		<link rel="stylesheet" href="styles.css" />
-		<script src="https://unpkg.com/vue@next" defer></script>
+		<script src="https://unpkg.com/vue@3.4.9/dist/vue.global.js"></script>
 		<script src="app.js" defer></script>
 	</head>
 	<body>
@@ -31,7 +31,9 @@
 					<div
 						class="healthbar__value"
 						:style="monsterBarStyles"
-					></div>
+					></div> 
+					<!-- use computed property to change css style instead of writing logic in html file -->
+					<!-- write logic in html -> :style="{width : monsterHealth + '%'}" -->
 				</div>
 			</section>
 
@@ -53,20 +55,26 @@
 					placeholder="Choose your name"
 				/>
 			</section>
-
+			
 			<section v-if="winner" class="container" id="result-container">
 				<h3>Game Over!</h3>
 				<h1 v-if="winner === 'player'">You won! 😎</h1>
 				<h1 v-else-if="winner === 'monster'">You lost! 🚽</h1>
 				<h1 v-else>It's a draw! 🌓</h1>
 			</section>
+
+			<!-- if winner decided, shows restart button -->
 			<section v-if="winner" class="controls">
 				<button @click="restartGame">Restart</button>
 			</section>
-
+			
+			<!-- else if winner is not decided, and user hasn't enter their user name -->
 			<section v-else-if="playerName" class="controls">
+				<!-- we can use 'attackMonster' or 'attackMonster()' -->
 				<button @click="attackMonster">Attack</button>
 				<div class="shake">
+					<!-- instead of using computed property, we can also use : v-bind:disabled="currentRound % 3 !== 0" -->
+					<!-- compared to v-bind:style, we don't use {}, because this is not css attribute in .css file, it's attribute in html -->
 					<button
 						:disabled="mayUseSpecialAttack"
 						@click="specialAttackMonster"
@@ -93,6 +101,7 @@
 
 						<span v-if="log.actionType === 'heal'">
 							heals himself for
+							<!-- add this addtional span in order to add addtional class to the value -->
 							<span class="log-value log--heal">
 								{{ log.actionValue }}
 							</span>
