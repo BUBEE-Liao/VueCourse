@@ -9,7 +9,7 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="styles.css" />
-		<script src="https://unpkg.com/vue@next" defer></script>
+		<script src="https://unpkg.com/vue@3.4.9/dist/vue.global.js"></script>
 		<script src="app.js" defer></script>
 	</head>
 	<body>
@@ -20,6 +20,16 @@
 		<section id="app">
 			<h2>How Vue Works</h2>
 
+			<!-- in previous course, we can use the below three ways : -->
+			<!-- 1. <input type="text" @input="saveInput" /> -->
+			<!-- 2. <input type="text" @input="saveInput($event)" /> -->
+			 <!-- NOTE : 只有事件要傳 → 可以省略 $event，Vue 會自動幫你傳進去, 要傳其他參數 → 就要手動把 $event 寫出來，才能同時取得事件和其他值 -->
+			<!-- 3. <input type="text" v-model="currentUserInput" /> -->
+			<!-- sometimes that's all just overkill, in such cases, Vue has a feature allows you to retrieve values from DOM elements when you need them, instead of all the time-->
+			<!-- this is called 'ref', instead of adding event listener, we add a special attribute to this element, the ref attribute -->
+			<!-- ref attribute is a non-default HTML attribute, the browser doesn't know it, but Vue does -->
+			<!-- below, 'userText' is defined by ourself, it's totally up to you -->
+			<!-- Vue detects such ref and stores them internally, memorizes that we want access to the input element -->
 			<input type="text" ref="userText" />
 			<button @click="setText">Set Text</button>
 			<p>{{ message }}</p>
