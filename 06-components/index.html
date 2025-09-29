@@ -9,15 +9,19 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="styles.css" />
-		<script src="https://unpkg.com/vue@next" defer></script>
+		<script src="https://unpkg.com/vue@3.4.9/dist/vue.global.js"></script>
 		<script src="app.js" defer></script>
 	</head>
 	<body>
 		<header>
 			<h1>FriendList</h1>
 		</header>
+		<!-- this will be ignored -->
+		<friend-contact></friend-contact>
 
 		<section id="app">
+			<!-- we can use our component as if it would be an official HTML element(tag) -->
+			<!-- IMPORTANT : only use this special component tag inside the Vue app, if we use it outside the id="app" section, browser will ignore it -->
 			<friend-contact></friend-contact>
 			<friend-contact></friend-contact>
 		</section>
