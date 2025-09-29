@@ -32,11 +32,13 @@ export default {
 			activeTopic: null,
 		};
 	},
+	/// provide can hold a object then in which we, for example, provide our 'topics'
 	// provides data to all the child elements until one injects it (acts as prop wo passing props to middleman componnets)
-	// moze bit i provide: ali je onda static data, sama za sebe
 	provide() {
 		return {
 			topics: this.topics,
+			/// to avoid emit transfer, provide this function
+			/// we just pointing at this function, not executing it
 			selectTopic: this.activateTopic,
 		};
 	},

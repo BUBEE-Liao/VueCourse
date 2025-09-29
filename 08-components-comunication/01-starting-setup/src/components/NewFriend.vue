@@ -1,4 +1,5 @@
 <template>
+	<!-- form will default reload the whold page, so we add .prevent to avoid this -->
 	<form @submit.prevent="submitData" autocomplete="off">
 		<div>
 			<label for="name">Name</label>

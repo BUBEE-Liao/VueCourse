@@ -12,7 +12,12 @@
 
 <script>
 export default {
-  // incect data provided by higher up component
+	/// inject data provided by higher up component
+	/// replace props with 'inject', which works together with provide
+	/// it's basically works like props
+	/// NOTE : we can ONLY inject what has been provided on a higher-up level
+	///        which basically means, in a parent component
+	/// if we provided in ActiveElement.vue, we cannot inject in here, because they're not parent-child relationship
 	inject: ['topics'],
 };
 </script>

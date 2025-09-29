@@ -5,6 +5,9 @@
 		</header>
 		<new-friend @add-contact="addContact"></new-friend>
 		<ul>
+			<!-- to pass boolean value into component, we cna't pass "0" of "1", we can use v-bind to pass "true" of "false" -->
+			<!-- when using v-for, make sure using 'key' as _id -->
+			<!-- @toggle-favorite="toggleFavoriteStatus" -> bind $emit event of component to the main (App.vue) -->
 			<friend-contact
 				v-for="friend in friends"
 				:key="friend.id"
